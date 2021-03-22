@@ -11,7 +11,7 @@ Requirements for this application:
 
 Functionality Requirements:
 
-- [] Current day displayed at top of calendar
+- [x] Current day displayed at top of calendar
 - [] Timeblocks cover business hours (8 - 5pm)
 - [] Timeblocks are colour coded to show if they are in past present or future
 - [] Clicking a timeblock allows text input of an event
