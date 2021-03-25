@@ -12,11 +12,11 @@ Requirements for this application:
 Functionality Requirements:
 
 - [x] Current day displayed at top of calendar
-- [] Timeblocks cover business hours (8 - 5pm)
+- [] Timeblocks cover business hours (9 - 5pm)
 - [] Timeblocks are colour coded to show if they are in past present or future
 - [] Clicking a timeblock allows text input of an event
 - [] Clicking save after inputting an event saves it to local storage
-- [] Saved events are displayed after refresh
+- [] Saved events are displayed after page refresh
 
 Additional Requirements:
 
