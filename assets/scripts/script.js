@@ -1,14 +1,17 @@
-// Display the current day
 const today = moment();
+const savedAt = today.format("YYYY-MM-DD");
+const schedulerStorage = window.localStorage;
+const scheduledEvents = getScheduledEvents();
+
+// Display the current day
 $("#currentDay").text(today.format("dddd, Do MMMM"));
 
-const savedAt = today.format("YYYY-MM-DD");
+// TODO:
 // color block past, present and future hours
 // identify current hour moment()
-//if hour
+// if hour
 
-// create the timeblocks
-// delegate JQuery - events to elements pre-exist
+// Create the timeblocks
 const $container = $(".container");
 
 for (let i = 9; i <= 17; i++) {
@@ -19,34 +22,36 @@ for (let i = 9; i <= 17; i++) {
   $container.append(`
   <div class="row">
     <label for="${inputId}" class="hour col">${hour} ${meridiem}</label>
-    <textarea id="${inputId}" name="${inputId}" class="description row col-10" rows="4" cols="33">
-    </textarea>
-    <button type="button" class="saveBtn col"><i class="far fa-save"></i></button>
+    <textarea id="${inputId}" name="${inputId}" class="description row col-10" rows="4" cols="33">${
+    scheduledEvents[inputId] ?? ""
+  }</textarea>
+    <button type="button" class="saveBtn col" data-timeblock="${inputId}"><i class="far fa-save"></i></button>
   </div>
   `);
 }
 
-// save any textarea input to local storage textArea.value
-//serialization - JSON.stringify();
-
-const schedulerStorage = window.localStorage;
-const scheduledEvents = {
-  "9AM": "",
-  "10AM": "hai;er 56346ufh",
-  "11AM": "hai;erufh",
-  "12PM": "",
-  "1PM": "",
-  "2PM": "hai;erufh",
-  "3PM": "hai;e67463 rufh",
-  "4PM": "hai;erufh",
-  "5PM": "",
-};
-// Any textarea value is to be stored in an object
-// that is then serialized and stored in localStorage
+// On click of SaveBtn
+$(".saveBtn").click(function (event) {
+  // Identify the corresponding textArea ID using data attribute
+  const eventTime = event.currentTarget.dataset.timeblock;
+  const textAreaContent = $(`#${eventTime}`).val();
+  // Add textArea velue to an object using the eventTime as Key
+  scheduledEvents[eventTime] = textAreaContent;
+  // Serialize object and add to local storage
+  storeScheduledEvents(scheduledEvents);
+});
 
 function storeScheduledEvents(obj) {
+  // Serialize object
   let serializeScheduledEvents = JSON.stringify(obj);
+  // save to local stroage with today's date as key
   schedulerStorage.setItem(savedAt, serializeScheduledEvents);
 }
 
-// .click(saveBtn)
+// Get the stored events to display on page refresh and manage if local storage is empty
+function getScheduledEvents() {
+  // get the serialized object from local storage
+  const eventsJson = schedulerStorage.getItem(savedAt);
+  // Determine if there is data in local storage - if empty set as an empty object or Parse string if data exists
+  return eventsJson === null ? {} : JSON.parse(eventsJson);
+}
