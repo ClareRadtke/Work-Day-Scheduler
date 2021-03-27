@@ -17,8 +17,8 @@ for (let i = 9; i <= 17; i++) {
 
   $container.append(`
   <div class="row">
-    <label for="${inputId}" class="hour col">${hour} ${meridiem}</label>
-    <textarea id="${inputId}" name="${inputId}" class="description ${className} row col-10" rows="4" cols="33">${
+    <label for="${inputId}" class="hour col-xl-1 col-md-2 col-3">${hour} ${meridiem}</label>
+    <textarea id="${inputId}" name="${inputId}" class="description ${className} row col-xl-10 col-md-9 col-8" rows="4" cols="33">${
     scheduledEvents[inputId] ?? ""
   }</textarea>
     <button type="button" class="saveBtn col" data-timeblock="${inputId}"><i class="far fa-save"></i></button>
