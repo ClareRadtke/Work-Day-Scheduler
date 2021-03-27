@@ -1,4 +1,4 @@
-const now = moment("2021-03-27T13:00:00");
+const now = moment();
 const savedAt = now.format("YYYY-MM-DD");
 const $container = $(".container");
 const scheduledEvents = getScheduledEvents();
