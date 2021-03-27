@@ -22,19 +22,20 @@ textarea {
 }
 
 /* Timeblocks */
+.container {
+  margin-bottom: 2em;
+}
 
-
-/* Provided CSS */
 .description {
   white-space: pre-wrap;
   resize: none;
   background-color: rgb(214, 214, 214);
 }
 
-.time-block {
+/* .time-block {
   text-align: center;
   border-radius: 15px;
-}
+} */
 
 .row {
   white-space: pre-wrap;
