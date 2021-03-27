@@ -14,11 +14,12 @@ const $container = $(".container");
 for (let i = 9; i <= 17; i++) {
   const hour = i > 12 ? i - 12 : i;
   const meridiem = i < 12 ? "AM" : "PM";
+  const inputId = hour + meridiem;
 
   $container.append(`
   <div class="row">
-    <label for="desctiption" class="hour col">${hour} ${meridiem}</label>
-    <textarea id="desctiption" name="desctiption" class="description row col-10" rows="4" cols="33">
+    <label for="${inputId}" class="hour col">${hour} ${meridiem}</label>
+    <textarea id="${inputId}" name="${inputId}" class="description row col-10" rows="4" cols="33">
     </textarea>
     <button type="button" class="saveBtn col"><i class="far fa-save"></i></button>
   </div>
