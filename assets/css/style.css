@@ -53,12 +53,12 @@ textarea {
 
 .present {
   background-color: #ff6961;
-  color: white;
+  color: black;
 }
 
 .future {
   background-color: #77dd77;
-  color: white;
+  color: black;
 }
 
 /* Save Button */

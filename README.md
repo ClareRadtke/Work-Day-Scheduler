@@ -5,7 +5,7 @@ A simple calendar application that allows a user to save events for each hour of
 [Work Day Scheduler](https://clareradtke.github.io/Work-Day-Scheduler/)
 
 
-<!-- ![description](file path) -->
+![A user clicks through a single day scheduler, updating an event and refreshing](./assets/images/SchedulerScreenRecording.gif)
 
 Requirements for this application:
 
