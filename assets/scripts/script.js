@@ -1,15 +1,11 @@
 const today = moment();
 const savedAt = today.format("YYYY-MM-DD");
+const currentHour = today;
 const schedulerStorage = window.localStorage;
 const scheduledEvents = getScheduledEvents();
 
 // Display the current day
 $("#currentDay").text(today.format("dddd, Do MMMM"));
-
-// TODO:
-// color block past, present and future hours
-// identify current hour moment()
-// if hour
 
 // Create the timeblocks
 const $container = $(".container");
@@ -18,16 +14,31 @@ for (let i = 9; i <= 17; i++) {
   const hour = i > 12 ? i - 12 : i;
   const meridiem = i < 12 ? "AM" : "PM";
   const inputId = hour + meridiem;
+  const compareTime = moment(today).hour(i);
+  const className = getTenseClassName(compareTime);
 
   $container.append(`
   <div class="row">
     <label for="${inputId}" class="hour col">${hour} ${meridiem}</label>
-    <textarea id="${inputId}" name="${inputId}" class="description row col-10" rows="4" cols="33">${
+    <textarea id="${inputId}" name="${inputId}" class="description ${className} row col-10" rows="4" cols="33">${
     scheduledEvents[inputId] ?? ""
   }</textarea>
     <button type="button" class="saveBtn col" data-timeblock="${inputId}"><i class="far fa-save"></i></button>
   </div>
   `);
+}
+
+// Return appropriate class name when compared against provided moment
+function getTenseClassName(compareMoment) {
+  if (today.isBefore(compareMoment, "hour")) {
+    return "future";
+  }
+  if (today.isAfter(compareMoment, "hour")) {
+    return "past";
+  }
+  if (today.isSame(compareMoment, "hour")) {
+    return "present";
+  }
 }
 
 // On click of SaveBtn
@@ -55,3 +66,7 @@ function getScheduledEvents() {
   // Determine if there is data in local storage - if empty set as an empty object or Parse string if data exists
   return eventsJson === null ? {} : JSON.parse(eventsJson);
 }
+
+// TODO:
+// color block past, present and future hours
+// identify current hour moment() use currentHour

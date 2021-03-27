@@ -29,13 +29,7 @@ textarea {
 .description {
   white-space: pre-wrap;
   resize: none;
-  background-color: rgb(214, 214, 214);
 }
-
-/* .time-block {
-  text-align: center;
-  border-radius: 15px;
-} */
 
 .row {
   white-space: pre-wrap;
@@ -68,7 +62,6 @@ textarea {
   color: white;
 }
 
-
 /* Save Button */
 .saveBtn {
   border-left: 1px solid black;
@@ -80,7 +73,7 @@ textarea {
   font-size: 20px;
 }
 
-.saveBtn i:hover {
+.saveBtn:hover i{
   font-size: 40px;
   transition: all 0.3s ease-in-out;
 }
