@@ -1,20 +1,18 @@
-const today = moment();
-const savedAt = today.format("YYYY-MM-DD");
-const currentHour = today;
-const schedulerStorage = window.localStorage;
+const now = moment();
+const savedAt = now.format("YYYY-MM-DD");
+const $container = $(".container");
 const scheduledEvents = getScheduledEvents();
 
 // Display the current day
-$("#currentDay").text(today.format("dddd, Do MMMM"));
+$("#currentDay").text(now.format("dddd, Do MMMM"));
 
 // Create the timeblocks
-const $container = $(".container");
 
 for (let i = 9; i <= 17; i++) {
   const hour = i > 12 ? i - 12 : i;
   const meridiem = i < 12 ? "AM" : "PM";
   const inputId = hour + meridiem;
-  const compareTime = moment(today).hour(i);
+  const compareTime = moment(now).hour(i);
   const className = getTenseClassName(compareTime);
 
   $container.append(`
@@ -30,15 +28,9 @@ for (let i = 9; i <= 17; i++) {
 
 // Return appropriate class name when compared against provided moment
 function getTenseClassName(compareMoment) {
-  if (today.isBefore(compareMoment, "hour")) {
-    return "future";
-  }
-  if (today.isAfter(compareMoment, "hour")) {
-    return "past";
-  }
-  if (today.isSame(compareMoment, "hour")) {
-    return "present";
-  }
+  if (now.isBefore(compareMoment, "hour")) return "future";
+  if (now.isAfter(compareMoment, "hour")) return "past";
+  if (now.isSame(compareMoment, "hour")) return "present";
 }
 
 // On click of SaveBtn
@@ -56,17 +48,13 @@ function storeScheduledEvents(obj) {
   // Serialize object
   let serializeScheduledEvents = JSON.stringify(obj);
   // save to local stroage with today's date as key
-  schedulerStorage.setItem(savedAt, serializeScheduledEvents);
+  window.localStorage.setItem(savedAt, serializeScheduledEvents);
 }
 
 // Get the stored events to display on page refresh and manage if local storage is empty
 function getScheduledEvents() {
   // get the serialized object from local storage
-  const eventsJson = schedulerStorage.getItem(savedAt);
+  const eventsJson = window.localStorage.getItem(savedAt);
   // Determine if there is data in local storage - if empty set as an empty object or Parse string if data exists
   return eventsJson === null ? {} : JSON.parse(eventsJson);
 }
-
-// TODO:
-// color block past, present and future hours
-// identify current hour moment() use currentHour
